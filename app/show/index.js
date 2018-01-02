@@ -67,7 +67,7 @@ class Item extends Component {
     return (
       <TouchableHighlight>
         <View style={styles.item}>
-          <Text style={styles.itemTitle}>{rowData.curTime}---{rowData.order}</Text>
+          <Text style={styles.itemTitle}>{rowData.curTime}</Text>
           <View>
             <Image
               style={styles.itemImage}

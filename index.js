@@ -1,4 +1,4 @@
 import { AppRegistry } from 'react-native';
-import App from './App';
+import GuluApp from './index.ios';
 
-AppRegistry.registerComponent('Gulu', () => App);
+AppRegistry.registerComponent('Gulu', () => GuluApp);
