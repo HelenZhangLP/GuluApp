@@ -1,5 +1,7 @@
 import React,{Component} from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
+
+import DetailPage from '../detail/index'
 import Request from '../common/request'
 import Config from '../common/config'
 
@@ -62,35 +64,51 @@ class Item extends Component {
 
   }
 
+  _navigatorSetting = () => {
+    this.props.navigator.push(
+      {
+        component: DetailPage,
+        title: '',
+        passProps: {
+          data: this.state.rowData
+        },
+        tintColor: '#000',
+        leftButtonTitle: 'back',
+        leftButtonIcon: 'ios-back',
+        onLeftButtonPress: () => this.props.navigator.pop(),
+      }
+    );
+  }
+
   render(row) {
     const rowData = this.props.row;
     return (
-      <TouchableHighlight>
-        <View style={styles.item}>
-          <Text style={styles.itemTitle}>{rowData.curTime}</Text>
-          <View>
-            <Image
-              style={styles.itemImage}
-              source={{uri: rowData.thumb}}
+      <View style={styles.item}>
+        <Text style={styles.itemTitle}>{rowData.curTime}</Text>
+        <View>
+          <Image
+            style={styles.itemImage}
+            source={{uri: rowData.thumb}}
+          />
+          <Icon
+            style={styles.ItemIcon}
+            size={28}
+            name ="ios-musical-notes-outline"
+          />
+        </View>
+        <View style={styles.itemControl}>
+          <View style={[styles.itemBar]}>
+            <Icon 
+              style={[styles.ItemBarIcon,this.state.isPraise ? styles.praiseY : styles.praiseN]}
+              name ={this.state.isPraise ? "ios-cafe" : "ios-cafe-outline"}
+              size = {22}
             />
-            <Icon
-              style={styles.ItemIcon}
-              size={28}
-              name ="ios-musical-notes-outline"
-            />
+            <Text 
+              style={this.state.isPraise ? styles.praiseY : styles.praiseN}
+              onPress = {this._onPraise}
+            >喳</Text>
           </View>
-          <View style={styles.itemControl}>
-            <View style={[styles.itemBar]}>
-              <Icon 
-                style={[styles.ItemBarIcon,this.state.isPraise ? styles.praiseY : styles.praiseN]}
-                name ={this.state.isPraise ? "ios-cafe" : "ios-cafe-outline"}
-                size = {22}
-              />
-              <Text 
-                style={this.state.isPraise ? styles.praiseY : styles.praiseN}
-                onPress = {this._onPraise}
-              >喳</Text>
-            </View>
+          <TouchableHighlight onPress={ this._navigatorSetting}>
             <View style={styles.itemBar}>
               <Icon 
                 style={styles.ItemBarIcon}
@@ -99,9 +117,9 @@ class Item extends Component {
               />
               <Text>翻牌</Text>
             </View>
-          </View>
+          </TouchableHighlight>
         </View>
-      </TouchableHighlight>
+      </View>
     );
   }
 }
@@ -232,8 +250,8 @@ class ShowPage extends Component {
     }
   }
 
-  _renderRow(rowData) {
-    return (<Item row = {rowData} />);
+  _renderRow = (rowData) => {
+    return (<Item row = {rowData} navigator ={this.props.navigator} />);
   }
 
   render() {

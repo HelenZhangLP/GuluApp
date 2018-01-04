@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import {
 	View,
 	Text,
-	TabBarIOS
+	TabBarIOS,
+	NavigatorIOS
 } from 'react-native';
 
 //第三方组件
@@ -11,8 +12,6 @@ import Icon from 'react-native-vector-icons/Ionicons'
 //自定义组件
 import ShowPage from './app/show/index'
 import BuildPage from './app/build/index'
-
-console.log(ShowPage);
 
 export default class GuluApp extends Component {
 
@@ -39,19 +38,33 @@ export default class GuluApp extends Component {
               selectedTab: 'List',
             });
           }}>
-          <ShowPage />
+          <NavigatorIOS 
+          	style={{flex: 1}}
+          	barTintColor='#f10000'
+          	initialRoute={{
+	            component: ShowPage,
+	            title: '小主日程',
+	            passProps: {}
+          }}/>
         </Icon.TabBarItem>
         <Icon.TabBarItem
           title="Build"
           iconName = "ios-aperture-outline"
           selectedIconName = "ios-aperture"
-          selected = {this.state.selected == 'Build'}
+          selected = {this.state.selectedTab == 'Build'}
           onPress={() => {
             this.setState({
               selectedTab: 'Build',
             });
           }}>
-          <BuildPage />
+          <NavigatorIOS 
+          	style={{flex: 1}}
+          	barTintColor='#f10000'
+          	initialRoute={{
+	            component: BuildPage,
+	            title: '设置小主日程',
+	            passProps: {}
+          }}/>
         </Icon.TabBarItem>
       </TabBarIOS>
 		)
