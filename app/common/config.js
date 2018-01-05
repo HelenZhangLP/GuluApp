@@ -11,8 +11,8 @@ module.exports = {
 
 		url : {
 			base: 'http://rap.taobao.org/mockjs/30700/',
-			plist: 'api/listp',
-			praise: 'api/praise'
-
+			plist: 'api/listp',	//列表接口
+			praise: 'api/praise', //点赞接口
+			comment: 'api/comment' //评论接口
 		}
 	}
